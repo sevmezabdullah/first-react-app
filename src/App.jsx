@@ -1,71 +1,57 @@
+import { useEffect } from "react"
+import AgeCover from "./components/AgeCover/AgeCover"
+import useStore from './store/store'
 
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import Home from "./pages/Home"
+import About from "./pages/About"
 
-import { useEffect, useState } from 'react'
-import ProductList from './components/ProductList/ProductList'
-import Basket from './components/Basket/Basket'
-//Zustand , Redux Toolkit , Context API
-
-// Moduler Javascript
-// import : dışardan paket alma, kullanma
-// export : bir paketi dışarı açmak, class, fonksiyon, değişken
-
-
-const products = [
-  {
-    id: 1,
-    name: 'iPhone 13',
-    price: 1000,
-    description: 'The latest iPhone',
-    imageUrl: 'https://www.iphone13.com/wp-content/uploads/2021/09/iPhone13_091513.jpg',
-  },
-  {
-    id: 2,
-    name: 'iPhone 14',
-    price: 2000,
-    description: 'The latest iPhone',
-    imageUrl: 'https://www.iphone13.com/wp-content/uploads/2021/09/iPhone13_091513.jpg',
-  },
-  {
-    id: 3,
-    name: 'iPhone 15',
-    price: 3000,
-    description: 'The latest iPhone',
-    imageUrl: 'https://www.iphone13.com/wp-content/uploads/2021/09/iPhone13_091513.jpg',
-  },
-]
 
 function App() {
 
+  // State Yönetimi Nedir ? 
 
-  const [basket, setBasket] = useState([])
+  // Durum - State - Degisken
+  // Render İşlemi - Ekranın Çizilmesi
+  // Re- Render işlemi - Tekrar eden renderlama
 
-  // Sayfa render edildiğinde bir kere çalışır.
+  // State tanımlama  işlemi maaliyetli bir işlem.
+  //const [age, setAge] = useState(0)
+
+
+  const increaseAge = useStore((state) => state.increaseAge)
+  const decreaseAge = useStore((state) => state.decreaseAge)
+
+
   useEffect(() => {
-    console.log('Sepetteki ürünler :', basket)
-
-    //Clean Up
-    return () => {
-      console.log('Sayfa kapatıldı')
-    }
-  }, [basket])
+    console.info('Ekran çizildi.')
+  })
 
 
-  const addToBasket = (product) => {
-    setBasket([...basket, product])
-  }
-
-  const removeFromBasket = (id) => {
-    setBasket(basket.filter((product) => product.id !== id))
-  }
-
-  // hook 
 
   return (
     <>
-      <h1>AbdullahBurada.com</h1>
+      <AgeCover />
+      <button style={{
+        fontSize: '30px',
+        padding: '10px',
+        margin: '10px',
+      }} onClick={increaseAge}>Yas Arttırma Butonu</button>
 
-      <Basket removeFromBasket={removeFromBasket} basket={basket} />
-      <ProductList addToBasket={addToBasket} products={products} />
+
+      <button style={{
+        fontSize: '30px',
+        padding: '10px',
+        margin: '10px',
+      }} onClick={decreaseAge}>Yas Eksiltme Butonu</button>
+
+      {/*     <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Router> */}
+
     </>
   )
 }
