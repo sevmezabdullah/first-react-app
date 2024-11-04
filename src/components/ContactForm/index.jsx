@@ -19,7 +19,13 @@ const validationSchema = Yup.object({
 //initialValues formun ilk değişkenlerini verir.
 const ContactForm = ({ onSubmit, initialValues }) => {
     return (
-        <Formik validationSchema={validationSchema} initialValues={initialValues} onSubmit={onSubmit} >
+        <Formik validate={(values) => {
+            /*       const errors = {};
+      
+                  if(values.firstName){
+      
+                  } */
+        }} validationSchema={validationSchema} initialValues={initialValues} onSubmit={onSubmit} >
 
             {() => (
                 <Form className='card bg-base-100 shadow-md p-4 max-w-lg mx-auto'>

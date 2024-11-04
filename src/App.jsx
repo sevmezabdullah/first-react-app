@@ -76,6 +76,8 @@ const App = () => {
           email: '',
         }} onSubmit={handleSubmit} />
 
+
+
         <SearchBox setValue={setSearchValue} value={searchValue} />
         <div className='mt-8'>
           <ContactList contactList={contacts} onDelete={handleDelete} onEdit={handleEdit} />
