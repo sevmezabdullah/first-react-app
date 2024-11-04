@@ -1,79 +1,89 @@
-import { useState, } from "react"
-import { useTranslation } from "react-i18next"
-import useFetch from "./hooks/useFetch"
+
+import { useEffect, useState } from 'react'
+import ContactForm from './components/ContactForm';
+import ContactList from './components/ContactList';
+import SearchBox from './components/SearchBox';
 
 
+// Rehber Uygulaması
 const App = () => {
+  //formik - formlardaki olayları dinleyip verileri kontrol eder.
+
+  //yup - veri validasyonu yapar.
 
 
-  // 3.parti paket olarak gelen custom hook
-  const { t, i18n } = useTranslation()
-  // Hooklar Hayatımızı Kolaylaştırır. İyiki varlar.
-  const [count, setCount] = useState(20)
-
-  //kendi yazdığımız hook
-  const { data, error, loading } = useFetch('https://jsonplaceholder.typicode.com/todos/1')
+  // Contact State
+  const [contacts, setContacts] = useState([]);
+  const [baseList, setBaseList] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
+  const [searchValue, setSearchValue] = useState('');
 
 
-  // hooklar geriye değer dönen fonksiyonlar.
+  useEffect(() => {
+    filterContacts(searchValue)
 
-  //setCount : değişebilen değeri bir fonksiyon içerisinde günceller. Ve yeni değeri geri döner.
+    if (searchValue === '') {
+      setContacts(baseList)
+    }
+  }, [searchValue])
 
 
+  const filterContacts = (value) => {
+    setContacts(contacts.filter((contact) => contact.firstName.toLowerCase().includes(value.toLowerCase())))
+  }
+
+  const handleSubmit = (values, { resetForm }) => {
+    //  console.table(values);
+
+    //Eğer güncelleme yapılırsa
+    if (editIndex !== null) {
+      const updatedContacts = [...contacts];
+      updatedContacts[editIndex] = values
+      setContacts(updatedContacts);
+      setEditIndex(null);
+    }
+    // Eğer ekleme yapılırsa
+    else {
+      setContacts([...contacts, values]);
+      setBaseList([...contacts, values]);
+    }
+
+    resetForm();
+  }
+  const handleDelete = (index) => {
+    setContacts(contacts.filter((_, i) => i !== index));
+  }
+  const handleEdit = (index) => {
+    setEditIndex(index);
+  }
 
 
   return (
     <>
-      <div style={{
-        visibility: 'hidden',
-      }}>
-        <p style={{ fontSize: '60px', textAlign: 'center' }}>{t('welcome')}</p>
-        <p id="count" style={{ fontSize: '60px', textAlign: 'center' }}>{count}</p>
 
-        <div style={{
-          justifyContent: 'center',
-          display: 'flex',
-        }}>
-
-          <button onClick={() => {
-            setCount((value) => {
-              console.info(value)
-              value += 1
-              return value
-            })
-
-            setCount((value) => value + 1)
-            setCount(count + 1)
-          }} className="btn btn-primary">{t('increment')}</button>
-          <button onClick={() => {
-            setCount(() => {
-              return count - 5
-            })
-          }} className="btn btn-warning ml-2">{t('decrement')}</button>
+      <div className='bg-base-100'>
+        <div>
+          <h1 style={{ fontSize: "60px" }} className='text-center '>Rehber Uygulaması</h1>
         </div>
-        <div style={{ justifyContent: 'center', display: 'flex', marginTop: '20px' }}>
-          <button onClick={() => {
-            i18n.changeLanguage(i18n.language === 'tr' ? 'en' : 'tr')
-          }} className="btn btn-success mx-auto">{t('changeLanguage')}</button>
+
+
+        {/* initialValues %99 boş geçilir. %1 ihtimal dolu başlamasını isterler*/}
+        <ContactForm initialValues={{
+          firstName: '',
+          lastName: '',
+          phoneNumber: '',
+          adress: '',
+          email: '',
+        }} onSubmit={handleSubmit} />
+
+        <SearchBox setValue={setSearchValue} value={searchValue} />
+        <div className='mt-8'>
+          <ContactList contactList={contacts} onDelete={handleDelete} onEdit={handleEdit} />
         </div>
+
       </div>
 
 
-      <div style={{
-        justifyContent: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}>
-        <h1 style={{
-          fontSize: '60px',
-        }}>Veri Çekme</h1>
-
-        {loading && <p style={{ fontSize: '60px' }}>Yükleniyor...</p>}
-
-        {error && <p>Hata</p>}
-        {data && <p style={{ fontSize: '60px' }}>{data.title}</p>}
-      </div>
 
 
     </>
