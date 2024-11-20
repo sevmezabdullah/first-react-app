@@ -5,9 +5,9 @@ import MoviesPage from "./pages/MoviesPage"
 import MovieCast from "./pages/MovieCast"
 
 import NotFound from "./pages/NotFound"
-import React, { Suspense, useEffect } from "react"
+import React, { Suspense } from "react"
 import Fallback from "./pages/Fallback"
-import axios from "axios"
+
 
 const LazyHome = React.lazy(() => import("./pages/HomePage"))
 const LazyMovieDetail = React.lazy(() => import("./pages/MovieDetailPage"))
