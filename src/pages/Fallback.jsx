@@ -1,9 +1,9 @@
-import React from 'react'
+
 
 const Fallback = () => {
     return (
         <div>
-            <p>Hareket Eden Kurye Animasyonu</p>
+            <p>Film listesi yükleniyor...</p>
         </div>
     )
 }

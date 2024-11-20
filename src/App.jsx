@@ -1,44 +1,35 @@
+import { Routes, Route } from "react-router-dom"
 
+import MoviesPage from "./pages/MoviesPage"
 
-import { useEffect, useState } from 'react'
-import AuthNavigation from './navigation/authNavigation'
-import AdminNavigation from './navigation/adminNavigation'
-import UserNavigation from './navigation/userNavigation'
+import MovieCast from "./pages/MovieCast"
 
-import secureLocalStorage from 'react-secure-storage'
+import NotFound from "./pages/NotFound"
+import React, { Suspense, useEffect } from "react"
+import Fallback from "./pages/Fallback"
+import axios from "axios"
 
+const LazyHome = React.lazy(() => import("./pages/HomePage"))
+const LazyMovieDetail = React.lazy(() => import("./pages/MovieDetailPage"))
+const LazyMovieReviews = React.lazy(() => import("./pages/MovieReviews"))
 
 function App() {
 
-  const [user, setUser] = useState(null)
-
-
-  const checkUser = async () => {
-    const storedUser = secureLocalStorage.getItem('user')
-    const decodedUser = storedUser ? await JSON.parse(storedUser) : null
-    setUser(decodedUser)
-  }
-
-
-  useEffect(() => {
-    checkUser()
-  }, [])
-
-
-  useEffect(() => {
-
-  }, [user])
 
 
   return (
     <>
-
-      {user && user.role === "admin" && <AdminNavigation user={user} setUser={setUser} />}
-      {user && user.role === "user" && <UserNavigation />}
-      {!user && <AuthNavigation user={user} setUser={setUser} />}
-
-
-
+      <Routes>
+        <Route path="/" element={<Suspense fallback={<Fallback />}>
+          <LazyHome />
+        </Suspense>} />
+        <Route index path="/movies" element={<MoviesPage />} />
+        <Route path='/movies/:movieId' element={<Suspense fallback={<Fallback />}><LazyMovieDetail /></Suspense>} >
+          <Route index path="cast" element={<MovieCast />} />
+          <Route path="reviews" element={<Suspense fallback={<Fallback />}><LazyMovieReviews /></Suspense>} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </>
   )
 }

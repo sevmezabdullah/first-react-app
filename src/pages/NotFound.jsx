@@ -1,9 +1,7 @@
 
 const NotFound = () => {
     return (
-        <div>
-            <p>Gitmek istediğiniz sayfa bulunamadı</p>
-        </div>
+        <div>NotFound</div>
     )
 }
 
