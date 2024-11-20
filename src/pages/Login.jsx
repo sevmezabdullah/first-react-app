@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 
 // eslint-disable-next-line react/prop-types

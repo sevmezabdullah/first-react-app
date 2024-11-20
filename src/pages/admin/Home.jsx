@@ -1,5 +1,8 @@
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
+
+// eslint-disable-next-line react/prop-types
 const Home = ({ logout }) => {
     const navigate = useNavigate()
     const user = {
@@ -7,6 +10,16 @@ const Home = ({ logout }) => {
         role: 'admin',
         username: 'admin'
     }
+
+    useEffect(() => {
+        const timeInterval = setTimeout(() => {
+            console.log('merhaba')
+        }, 5000)
+
+        return () => {
+            clearTimeout(timeInterval)
+        }
+    })
     return (
         <div>
             <p style={{

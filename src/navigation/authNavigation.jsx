@@ -1,5 +1,5 @@
 
-import { Routes, Route, useNavigate, Router } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import ForgetPassword from '../pages/ForgetPassword'
