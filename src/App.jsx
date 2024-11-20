@@ -5,7 +5,7 @@ import AuthNavigation from './navigation/authNavigation'
 import AdminNavigation from './navigation/adminNavigation'
 import UserNavigation from './navigation/userNavigation'
 
-
+import secureLocalStorage from 'react-secure-storage'
 
 
 function App() {
@@ -14,28 +14,28 @@ function App() {
 
 
   const checkUser = async () => {
-    const storedUser = localStorage.getItem('user')
+    const storedUser = secureLocalStorage.getItem('user')
     const decodedUser = storedUser ? await JSON.parse(storedUser) : null
     setUser(decodedUser)
   }
 
 
   useEffect(() => {
-
     checkUser()
-    if (user) {
-      console.log(user)
-    }
-  },)
+  }, [])
 
+
+  useEffect(() => {
+
+  }, [user])
 
 
   return (
     <>
 
-      {user && user.role === "admin" && <AdminNavigation />}
+      {user && user.role === "admin" && <AdminNavigation user={user} setUser={setUser} />}
       {user && user.role === "user" && <UserNavigation />}
-      {!user && <AuthNavigation />}
+      {!user && <AuthNavigation user={user} setUser={setUser} />}
 
 
 

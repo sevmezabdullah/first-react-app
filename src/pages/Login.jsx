@@ -1,6 +1,10 @@
 import React from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 
-const Login = () => {
+// eslint-disable-next-line react/prop-types
+const Login = ({ login }) => {
+    const navigate = useNavigate()
+
     return (
         <div style={{
             display: 'flex',
@@ -15,10 +19,14 @@ const Login = () => {
 
             <input type="text" placeholder='Kullanıcı Adı' />
             <input type="password" placeholder='Parola' />
-            <button>Giriş Yap</button>
+            <button onClick={() => {
+
+                login()
+                navigate('/')
+            }}>Giriş Yap</button>
 
             <a href="/forget-password">Şifremi Unuttum ? </a>
-
+            <Link to={"/forget-password"}>Kampanyalar</Link>
             <a href="/register">Hesabın mı yok ? Kayıt Ol</a>
         </div>
     )
