@@ -1,7 +1,9 @@
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import store, { persistor } from './app/store.js';
+import { PersistGate } from 'redux-persist/integration/react';
 
 // Suspense - Outlet 
 // Lazy loading- Suspense Kullanılır.
@@ -13,7 +15,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 //  Nested Url Mapping için kullanılır. - React Router Dom kütüphanesinden geliyor.
 
 createRoot(document.getElementById("root")).render(
-  <Router>
-    <App />
-  </Router>
+  <Provider store={store}>
+    <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+      <Router>
+        <App />
+      </Router>
+    </PersistGate>
+  </Provider>
 );
