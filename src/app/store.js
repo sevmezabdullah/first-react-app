@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import todoReducer from '../store/todoSlice'
+import cartReducer from '../store/cartSlice'
+import productReducer from '../store/productSlice'
 import { persistStore, persistReducer } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
 import storage from 'redux-persist/lib/storage';
@@ -10,13 +11,15 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['todos']
+    whitelist: ['cart'],
+    blacklist: ["products"]
 
 }
 
 
 const rootReducer = combineReducers({
-    todos: todoReducer
+    cart: cartReducer,
+    products: productReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
