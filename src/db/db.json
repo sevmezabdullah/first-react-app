@@ -1,49 +1,24 @@
 {
-    "products": [
-        {
-            "id": 1,
-            "name": "Laptop",
-            "price": 5000,
-            "image": "https://picsum.photos/id/1/200/300",
-            "category": "Electronics",
-            "quantity": 10,
-            "discount": 0
-        },
-        {
-            "id": 2,
-            "name": "Macbook",
-            "price": 4000,
-            "image": "https://picsum.photos/id/1/200/300",
-            "category": "Electronics",
-            "quantity": 10,
-            "discount": 0
-        },
-        {
-            "id": 3,
-            "name": "Android TV",
-            "price": 8000,
-            "image": "https://picsum.photos/id/1/200/300",
-            "category": "Electronics",
-            "quantity": 10,
-            "discount": 0
-        },
-        {
-            "id": 4,
-            "name": "Mi Stick 4K",
-            "price": 3000,
-            "image": "https://picsum.photos/id/1/200/300",
-            "category": "Electronics",
-            "quantity": 10,
-            "discount": 0
-        },
-        {
-            "id": 5,
-            "name": "Smart TV",
-            "price": 11000,
-            "image": "https://picsum.photos/id/1/200/300",
-            "category": "Electronics",
-            "quantity": 10,
-            "discount": 0
-        }
-    ]
+  "todos": [
+    {
+      "id": "1",
+      "isCompleted": false,
+      "text": "Todo"
+    },
+    {
+      "id": "bddd",
+      "text": "yeni değer ekle",
+      "isCompleted": false
+    },
+    {
+      "id": "e79b",
+      "text": "yapılacak ekle",
+      "isCompleted": false
+    },
+    {
+      "id": "3f0a",
+      "text": "text",
+      "isCompleted": false
+    }
+  ]
 }
