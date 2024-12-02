@@ -1,29 +1,58 @@
-import { Route, Routes } from "react-router-dom"
-import ProductList from "./components/ProductList/ProductList"
-import Cart from "./components/Cart"
-import Checkout from "./pages/Checkout"
-
-
-
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { addTodo, fetchTodos, toggleTodo } from "./store/todoSlice"
+import Todo from "./pages/Todo"
 
 
 function App() {
 
+  const dispatch = useDispatch()
+  const todos = useSelector(state => state.todos.items)
+  const status = useSelector(state => state.todos.status)
+
+  const handleToggleTodo = (todo) => {
+    dispatch(toggleTodo(todo))
+  }
+
+  const handleAddTodo = () => {
+    dispatch(addTodo(text))
+  }
+  const [text, setText] = useState("")
+
+
+  useEffect(() => {
+    dispatch(fetchTodos())
+
+  }, [dispatch])
 
 
   return (
     <>
+      {/*       <div>
+        <h1>Yapılacaklar Uygulaması</h1>
+        <div>
+          <input type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="Yapılacak notu al" />
+          <button onClick={() => {
+            handleAddTodo()
+          }}>Ekle</button>
+        </div>
+
+        {status === "loading" && <p>Yükleniyor...</p>}
+        {status === "failed" && <p>Yüklenemedi</p>}
+        {status === "success" && todos.map((todo, index) => (<div key={index} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+          <input type="checkbox" onChange={() => {
+            handleToggleTodo(todo)
+          }} checked={todo.isCompleted} />
+          <p style={{ textDecoration: todo.isCompleted ? "line-through" : "none" }}>{todo.text}</p>
+        </div>))}
 
 
-      {/*       <h1>Abdullah Ticaret Hizmetleri</h1>
-      <ProductList /> */}
+
+      </div> */}
+
+      <Todo />
 
 
-      <Routes>
-        <Route path="/" element={<ProductList />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-      </Routes>
 
 
     </>
