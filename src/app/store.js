@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todoSlice from '../store/todoSlice'
-import { todoApi } from '../store/todoApiSlice'
+
+import authSlice from "../store/authSlice"
+
+import protectedSlice from "../store/protectedSlice"
 
 const store = configureStore({
     reducer: {
-        todos: todoSlice,
-        [todoApi.reducerPath]: todoApi.reducer
+        auth: authSlice,
+        protected: protectedSlice
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(todoApi.middleware)
+
 })
 
 
